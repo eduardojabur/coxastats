@@ -17,5 +17,7 @@ jobs:
         with:
           distribution: temurin
           java-version: "21"
+      - name: Allow Maven Wrapper execution
+        run: chmod +x ./mvnw
       - name: Test
         run: ./mvnw test
