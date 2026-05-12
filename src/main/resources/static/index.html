@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoxaStats</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <main class="shell">
+        <section class="topbar">
+            <div>
+                <p class="eyebrow">CoxaStats</p>
+                <h1 data-i18n="title">Gestao de elenco e desempenho</h1>
+            </div>
+            <div class="actions">
+                <select id="languageSelect" aria-label="Idioma">
+                    <option value="pt-BR">PT</option>
+                    <option value="en-US">EN</option>
+                </select>
+                <button id="themeToggle" class="icon-button" title="Dark mode">☾</button>
+                <button id="logoutButton" class="secondary hidden" data-i18n="logout">Sair</button>
+            </div>
+        </section>
+
+        <section id="loginPanel" class="panel login-grid">
+            <div>
+                <h2 data-i18n="loginTitle">Entrar</h2>
+                <p data-i18n="loginHelp">Use admin/senha123 para editar ou torcedor/senha123 para consultar.</p>
+            </div>
+            <form id="loginForm" class="form compact">
+                <input id="usuario" placeholder="admin" autocomplete="username" required>
+                <input id="senha" type="password" placeholder="senha123" autocomplete="current-password" required>
+                <button type="submit" data-i18n="loginButton">Acessar</button>
+            </form>
+        </section>
+
+        <section id="appPanel" class="app hidden">
+            <nav class="tabs">
+                <button class="tab active" data-tab="jogadores" data-i18n="players">Jogadores</button>
+                <button class="tab" data-tab="times" data-i18n="teams">Times</button>
+                <button class="tab" data-tab="partidas" data-i18n="matches">Partidas</button>
+                <button class="tab" data-tab="dashboard" data-i18n="dashboard">Dashboard</button>
+            </nav>
+
+            <div id="status" class="status" role="status"></div>
+
+            <section id="jogadoresTab" class="tab-view">
+                <div class="workspace">
+                    <form id="jogadorForm" class="panel form">
+                        <input type="hidden" id="jogadorId">
+                        <h2 data-i18n="playerForm">Cadastro de jogador</h2>
+                        <label><span data-i18n="name">Nome</span><input id="nome" required></label>
+                        <label><span data-i18n="position">Posicao</span><input id="posicao" required></label>
+                        <label><span data-i18n="shirt">Camisa</span><input id="numeroCamisa" type="number" min="1"></label>
+                        <label><span data-i18n="team">Time</span><select id="timeId"></select></label>
+                        <label><span data-i18n="photo">Foto</span><input id="foto" type="file" accept="image/*"></label>
+                        <button type="submit" data-i18n="save">Salvar</button>
+                    </form>
+                    <div class="panel table-panel">
+                        <div class="panel-head">
+                            <h2 data-i18n="players">Jogadores</h2>
+                            <button id="novoJogador" class="secondary" data-i18n="new">Novo</button>
+                        </div>
+                        <div id="jogadoresLista" class="cards"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="timesTab" class="tab-view hidden">
+                <div class="workspace">
+                    <form id="timeForm" class="panel form">
+                        <input type="hidden" id="timeEditId">
+                        <h2 data-i18n="teamForm">Cadastro de time</h2>
+                        <label><span data-i18n="name">Nome</span><input id="timeNome" required></label>
+                        <label><span data-i18n="coach">Tecnico</span><input id="timeTecnico"></label>
+                        <label><span data-i18n="city">Cidade</span><input id="timeCidade"></label>
+                        <label><span data-i18n="badge">Escudo URL</span><input id="timeEscudoUrl"></label>
+                        <button type="submit" data-i18n="save">Salvar</button>
+                    </form>
+                    <div class="panel table-panel">
+                        <div class="panel-head">
+                            <h2 data-i18n="teams">Times</h2>
+                            <button id="novoTime" class="secondary" data-i18n="new">Novo</button>
+                        </div>
+                        <div id="timesLista" class="cards compact-cards"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="partidasTab" class="tab-view hidden">
+                <div class="workspace">
+                    <form id="partidaForm" class="panel form">
+                        <input type="hidden" id="partidaId">
+                        <h2 data-i18n="matchForm">Resultado da partida</h2>
+                        <label><span data-i18n="homeTeam">Mandante</span><select id="timeCasaId" required></select></label>
+                        <label><span data-i18n="awayTeam">Visitante</span><select id="timeVisitanteId" required></select></label>
+                        <label><span data-i18n="date">Data</span><input id="dataHora" type="datetime-local" required></label>
+                        <label><span data-i18n="competition">Competicao</span><input id="competicao"></label>
+                        <label><span data-i18n="stadium">Estadio</span><input id="estadio"></label>
+                        <div class="score-grid">
+                            <label><span data-i18n="homeGoals">Gols mandante</span><input id="golsCasa" type="number" min="0"></label>
+                            <label><span data-i18n="awayGoals">Gols visitante</span><input id="golsVisitante" type="number" min="0"></label>
+                        </div>
+                        <button type="submit" data-i18n="save">Salvar</button>
+                    </form>
+                    <div class="panel table-panel">
+                        <div class="panel-head">
+                            <h2 data-i18n="matches">Partidas</h2>
+                            <button id="novaPartida" class="secondary" data-i18n="new">Novo</button>
+                        </div>
+                        <div id="partidasLista" class="cards compact-cards"></div>
+                    </div>
+                    <form id="golForm" class="panel form wide-form">
+                        <h2 data-i18n="goalForm">Lancamento de gol</h2>
+                        <div class="goal-grid">
+                            <label><span data-i18n="match">Partida</span><select id="golPartidaId" required></select></label>
+                            <label><span data-i18n="player">Jogador</span><select id="golJogadorId" required></select></label>
+                            <label><span data-i18n="minute">Minuto</span><input id="golMinuto" type="number" min="1" max="130"></label>
+                            <label><span data-i18n="type">Tipo</span><input id="golTipo" placeholder="normal"></label>
+                        </div>
+                        <button type="submit" data-i18n="addGoal">Adicionar gol</button>
+                        <div id="golsLista" class="cards compact-cards"></div>
+                    </form>
+                </div>
+            </section>
+
+            <section id="dashboardTab" class="tab-view hidden">
+                <div class="metrics">
+                    <article class="metric"><span data-i18n="totalPlayers">Jogadores</span><strong id="metricJogadores">0</strong></article>
+                    <article class="metric"><span data-i18n="totalTeams">Times</span><strong id="metricTimes">0</strong></article>
+                    <article class="metric"><span data-i18n="avgGoals">Media de gols</span><strong id="metricGols">0</strong></article>
+                    <article class="metric"><span data-i18n="registeredGoals">Gols registrados</span><strong id="metricGolsRegistrados">0</strong></article>
+                </div>
+                <div class="charts">
+                    <div class="panel"><h2 data-i18n="goalsPlayer">Gols por jogador</h2><canvas id="chartGolsJogador" width="520" height="260"></canvas></div>
+                    <div class="panel"><h2 data-i18n="winsCoach">Vitorias por tecnico</h2><canvas id="chartTecnicos" width="520" height="260"></canvas></div>
+                    <div class="panel"><h2 data-i18n="matchesTeam">Partidas por time</h2><canvas id="chartTimes" width="520" height="260"></canvas></div>
+                </div>
+            </section>
+        </section>
+    </main>
+    <script src="/app.js"></script>
+</body>
+</html>
