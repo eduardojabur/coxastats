@@ -4,12 +4,6 @@
 
 O projeto **CoxaStats** esta funcional e apresentavel como entrega final, com backend, frontend, autenticacao, dashboard, documentacao tecnica, CI e monitoramento.
 
-Ao comparar o codigo atual com os sprints planejados e com a planilha de avaliacao, o status fica assim:
-
-- **Atendido**: CRUDs com persistencia, JWT com dois perfis, Swagger, frontend separado do backend, integracao assincrona JSON, dark mode, upload, dashboard, i18n, health checks, CI, stored procedure gerencial e documentacao formal de sprints.
-- **Atendido com evidencia de cobertura**: frontend com `100%` de linhas e `85,11%` de branches no modulo testado `app-core.js`; backend com relatorio JaCoCo gerado em `target/site/jacoco/` e cobertura total exibida em `87%` no relatorio HTML.
-- **Risco de rubricacao**: criterio de GitFlow/versionamento no GitHub depende do historico real do repositorio, branches, commits e tags, nao apenas do codigo final.
-
 ## Conferencia por sprint
 
 ### Sprint 1 - Back-end
@@ -76,23 +70,3 @@ Observacao: o frontend possui relatorio em `target/frontend-coverage.txt`. O bac
 - Health checks: **OK**
 - Refino final de validacoes: **OK**
 - README e documentacao de execucao: **OK**
-
-## Conclusao de entrega
-
-Para **apresentacao funcional** e **entrega tecnica do sistema**, o projeto esta em boa ordem.
-
-Para **aderencia estrita a todos os criterios da planilha**, os principais pontos que ainda podem ser questionados pelos professores sao:
-
-1. o criterio de GitFlow/versionamento depende do historico real do repositorio no GitHub;
-2. a leitura de cobertura pode variar conforme o professor considerar linhas, instrucoes ou branches;
-3. o frontend automatizado cobre o modulo central da interface, nao uma automacao visual fim a fim.
-
-## Recomendacao final
-
-Se a entrega for **hoje**, o projeto esta apresentavel e consistente.
-
-Se houver tempo para uma ultima rodada de refinamento visando nota maxima, os melhores proximos passos seriam:
-
-1. organizar historico Git com branches, merges e tags coerentes;
-2. adicionar testes visuais ou end-to-end para o frontend;
-3. ampliar a cobertura de branches no backend.
