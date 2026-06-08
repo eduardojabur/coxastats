@@ -40,6 +40,7 @@ public class PartidaController {
     @ApiResponse(responseCode = "201", description = "Partida criada")
     @PostMapping
     public ResponseEntity<Partida> cadastrar(@RequestBody Partida partida) {
+        validarPartida(partida);
         return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(partida));
     }
 
@@ -49,6 +50,7 @@ public class PartidaController {
         if (!repository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
+        validarPartida(partida);
         partida.setId(id);
         return ResponseEntity.ok(repository.save(partida));
     }
@@ -61,5 +63,20 @@ public class PartidaController {
         }
         repository.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    private void validarPartida(Partida partida) {
+        if (partida.getTimeCasa() == null || partida.getTimeVisitante() == null) {
+            throw new IllegalArgumentException("Partida precisa ter time mandante e visitante.");
+        }
+        if (partida.getTimeCasa().getId() != null && partida.getTimeCasa().getId().equals(partida.getTimeVisitante().getId())) {
+            throw new IllegalArgumentException("Mandante e visitante nao podem ser o mesmo time.");
+        }
+        if (partida.getGolsCasa() != null && partida.getGolsCasa() < 0) {
+            throw new IllegalArgumentException("Gols do mandante nao podem ser negativos.");
+        }
+        if (partida.getGolsVisitante() != null && partida.getGolsVisitante() < 0) {
+            throw new IllegalArgumentException("Gols do visitante nao podem ser negativos.");
+        }
     }
 }

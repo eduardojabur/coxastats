@@ -27,9 +27,10 @@ public class SecurityConfig {
                 .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> {
-                    req.requestMatchers("/", "/index.html", "/app.js", "/styles.css", "/uploads/**").permitAll();
+                    req.requestMatchers("/", "/index.html", "/app.js", "/app-core.js", "/styles.css", "/uploads/**").permitAll();
                     req.requestMatchers(HttpMethod.POST, "/api/login").permitAll();
                     req.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/h2-console/**").permitAll();
+                    req.requestMatchers("/actuator/health/**", "/actuator/info").permitAll();
 
                     req.requestMatchers(HttpMethod.GET, "/api/jogadores/**").hasAnyRole("ADMIN", "TORCEDOR");
                     req.requestMatchers(HttpMethod.GET, "/api/times/**").hasAnyRole("ADMIN", "TORCEDOR");

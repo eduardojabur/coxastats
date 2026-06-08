@@ -23,6 +23,9 @@ public class UploadController {
         if (file.isEmpty()) {
             return ResponseEntity.badRequest().body("Nenhum arquivo enviado.");
         }
+        if (file.getContentType() != null && !file.getContentType().startsWith("image/")) {
+            return ResponseEntity.badRequest().body("Apenas arquivos de imagem sao aceitos.");
+        }
 
         try {
             Files.createDirectories(UPLOAD_DIR);

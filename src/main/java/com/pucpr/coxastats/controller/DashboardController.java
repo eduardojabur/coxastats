@@ -41,7 +41,7 @@ public class DashboardController {
                 "totalGolsRegistrados", golRepository.count(),
                 "mediaGols", partidaRepository.mediaGolsPorPartida(),
                 "golsPorJogador", normalizar(golRepository.golsPorJogador()),
-                "vitoriasPorTecnico", normalizar(partidaRepository.vitoriasPorTecnicoMandante()),
+                "vitoriasPorTecnico", normalizar(partidaRepository.vitoriasPorTecnicoProcedure()),
                 "partidasPorTime", normalizar(partidaRepository.partidasComoMandantePorTime())
         ));
     }

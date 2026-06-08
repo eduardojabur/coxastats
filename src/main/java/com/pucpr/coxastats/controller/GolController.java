@@ -35,6 +35,7 @@ public class GolController {
     @ApiResponse(responseCode = "201", description = "Gol criado")
     @PostMapping
     public ResponseEntity<Gol> cadastrar(@RequestBody Gol gol) {
+        validarGol(gol);
         return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(gol));
     }
 
@@ -46,5 +47,14 @@ public class GolController {
         }
         repository.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    private void validarGol(Gol gol) {
+        if (gol.getPartida() == null || gol.getJogador() == null) {
+            throw new IllegalArgumentException("Gol precisa ter partida e jogador.");
+        }
+        if (gol.getMinuto() != null && gol.getMinuto() < 0) {
+            throw new IllegalArgumentException("Minuto do gol nao pode ser negativo.");
+        }
     }
 }

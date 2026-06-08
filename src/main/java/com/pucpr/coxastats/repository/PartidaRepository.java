@@ -26,6 +26,9 @@ public interface PartidaRepository extends JpaRepository<Partida, Long> {
             """)
     List<Object[]> vitoriasPorTecnicoMandante();
 
+    @Query(value = "call VITORIAS_POR_TECNICO_PROC()", nativeQuery = true)
+    List<Object[]> vitoriasPorTecnicoProcedure();
+
     @Query("""
             select t.nome, count(p)
             from Partida p join p.timeCasa t
